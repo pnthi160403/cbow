@@ -1,9 +1,12 @@
 from .prepare_train import get_model_cbow, read_tokenizer
 import torch
 from tqdm import tqdm
-from .util import calc_accuracy
+from .util import calc_accuracy, set_seed
 
 def test_model(config, dataloader):
+    # set seed
+    set_seed()
+
     device = config["TRAIN"]["device"]
     checkpoint_path = config["CHECKPOINT"]["path"] + "/model.pth"
 
@@ -15,7 +18,10 @@ def test_model(config, dataloader):
         config=config,
         tokenizer=tokenizer
     )
-    model.load_state_dict(torch.load(checkpoint_path))
+    if device == "cuda":
+        model.load_state_dict(torch.load(checkpoint_path))
+    else:
+        model.load_state_dict(torch.load(checkpoint_path, map_location=torch.device('cpu')))
 
     labels = []
     predictions = []
@@ -36,6 +42,9 @@ def test_model(config, dataloader):
 
     labels = torch.tensor(labels).clone().detach().to(device)
     predictions = torch.tensor(predictions).clone().detach().to(device)
+
+    print("label shape: ", labels.shape)
+    print("prediction shape: ", predictions.shape)
 
     accuracy = calc_accuracy(
         preds=predictions,
