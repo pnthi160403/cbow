@@ -28,9 +28,9 @@ def get_config():
 
     config["DATA"] = {
         "train_path": "../dataset/data/vi.csv",
+        "val_path": "../dataset/data/vi.csv",
+        "test_path": "../dataset/data/vi.csv",
         "tokenizer_path": "./dataset/tokenizer.json",
-        "ratio_val": 0.1,
-        "ratio_test": 0.02,
     }
 
     config["LOG"] = {

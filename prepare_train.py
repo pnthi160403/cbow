@@ -24,15 +24,12 @@ def handle_special_char(sent):
 # read dataset
 def read_dataset(config):
     train_data_path = config["DATA"]["train_path"]
-    ratio_val = config["DATA"]["ratio_val"]
-    ratio_test = config["DATA"]["ratio_test"]
+    val_data_path = config["DATA"]["val_path"]
+    test_data_path = config["DATA"]["test_path"]
 
     train_data = load_dataset("csv", data_files=train_data_path)["train"]["text"]
-    len_train_data = len(train_data)
-    val_data = train_data[int(len_train_data * (1 - ratio_val)):]
-    train_data = train_data[:int(len_train_data * (1 - ratio_val))]
-    test_data = train_data[int(len_train_data * (1 - ratio_test)):]
-    train_data = train_data[:int(len_train_data * (1 - ratio_test))]
+    val_data = load_dataset("csv", data_files=val_data_path)["train"]["text"]
+    test_data = load_dataset("csv", data_files=test_data_path)["train"]["text"]
 
     return train_data, val_data, test_data
 
