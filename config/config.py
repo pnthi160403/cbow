@@ -1,16 +1,16 @@
-import configparser
 import os
 import torch
+import json
 
 def get_config():
-    config = configparser.ConfigParser()
+    config = {}
 
     config["BASE_DIR"] = {
         "path": "./",
     }
 
     config["CONFIG"] = {
-        "path": config["BASE_DIR"]["path"] + "config_epoch_{}.ini",
+        "path": config["BASE_DIR"]["path"] + "config_epoch_{}.json",
     }
 
     config["MODEL"] = {
@@ -54,19 +54,6 @@ def save_config(config, epoch):
     print(f"Saving config to {path}")
 
     with open(path, "w") as f:
-        config.write(f)
+        json.dump(config, f, indent=4)
 
-def load_config(config=None, epoch=0):
-    if config:
-        last_epoch_path = config["CONFIG"]["path"].format(config["TRAIN"]["epochs"])
-    else:
-        last_epoch_path = "./config_epoch_{}.ini".format(epoch)
-
-    if not os.path.exists(last_epoch_path):
-        print(f"Config file {last_epoch_path} not found")
-        return None
-    config = configparser.ConfigParser()
-    config.read(last_epoch_path)
-    return config
-
-__all__ = ["get_config", "create_all_dirs", "save_config", "load_config"]
+__all__ = ["get_config", "create_all_dirs", "save_config"]
