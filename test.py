@@ -48,6 +48,8 @@ def test_model(config, dataloader):
             predictions.append(predicted.item())
             step += 1
             if step % print_step == 0:
+                print("target: ", target)
+                print("predicted: ", predicted)
                 decode_target = tokenizer.decode(target[0])
                 decode_predicted = tokenizer.decode(predicted[0])
                 print(f"Target: {decode_target} - Predicted: {decode_predicted}")
