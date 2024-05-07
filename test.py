@@ -32,24 +32,24 @@ def test_model(config, dataloader):
             target = target.to(device)
             context = context.to(device)
             probs = model(context)
-            print("probs shape: ", probs.shape)
-            print(f"probs: {probs}")
-            print("target", target)
-            print("context", context)
+            # print("probs shape: ", probs.shape)
+            # print(f"probs: {probs}")
+            # print("target", target)
+            # print("context", context)
             
             # get predicted word
             _, predicted = torch.max(probs, 1)
 
-            print("predicted: ", predicted)
-            print("target: ", target)
-            labels.append(target[0])
-            predictions.append(predicted[0])
+            # print("predicted: ", predicted)
+            # print("target: ", target)
+            labels.append(target.item())
+            predictions.append(predicted.item())
 
     labels = torch.tensor(labels).clone().detach().to(device)
     predictions = torch.tensor(predictions).clone().detach().to(device)
 
-    print("label shape: ", labels.shape)
-    print("prediction shape: ", predictions.shape)
+    # print("label shape: ", labels.shape)
+    # print("prediction shape: ", predictions.shape)
 
     accuracy = calc_accuracy(
         preds=predictions,
