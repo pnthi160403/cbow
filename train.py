@@ -85,7 +85,7 @@ def train(config):
         config=config,
         tokenizer=tokenizer,
         dataset=test_data,
-        batch_size=batch_size,
+        batch_size=1,
         shuffle=False
     )
     test_model(config=config, dataloader=test_dataloader)

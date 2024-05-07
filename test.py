@@ -39,8 +39,11 @@ def test_model(config, dataloader):
             
             # get predicted word
             _, predicted = torch.max(probs, 1)
-            labels.append(target.item())
-            predictions.append(predicted.item())
+
+            print("predicted: ", predicted)
+            print("target: ", target)
+            labels.append(target[0])
+            predictions.append(predicted[0])
 
     labels = torch.tensor(labels).clone().detach().to(device)
     predictions = torch.tensor(predictions).clone().detach().to(device)
