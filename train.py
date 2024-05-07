@@ -2,7 +2,7 @@ from .prepare_train import read_dataset, read_tokenizer, get_dataloader, get_Ada
 from .util import set_seed, draw_loss_plot
 from tqdm import tqdm
 import torch
-from .test_model import test_model
+from .test import test_model
 from .config.config import create_dirs
 
 # train

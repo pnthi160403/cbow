@@ -38,7 +38,7 @@ def read_dataset(config):
 
 # read tokenizer
 def read_tokenizer(config):
-    tokenizer_path = config["TOKENIZER"]["path"]
+    tokenizer_path = config['DATA']['tokenizer_path']
     tokenizer = Tokenizer.from_file(tokenizer_path)
     return tokenizer
 
