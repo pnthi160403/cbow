@@ -5,8 +5,12 @@ import torch
 def get_config():
     config = configparser.ConfigParser()
 
+    config["BASE_DIR"] = {
+        "path": "./",
+    }
+
     config["CONFIG"] = {
-        "path": "./config_epoch_{}.ini",
+        "path": config["BASE_DIR"]["path"] + "config_epoch_{}.ini",
     }
 
     config["MODEL"] = {
@@ -30,11 +34,11 @@ def get_config():
     }
 
     config["LOG"] = {
-        "path": "./logs",
+        "path": config["BASE_DIR"]["path"] + "logs",
     }
 
     config["CHECKPOINT"] = {
-        "path": "./checkpoints",
+        "path": config["BASE_DIR"]["path"] + "checkpoints",
     }
 
     return config
