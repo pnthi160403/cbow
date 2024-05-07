@@ -80,11 +80,12 @@ def train(config):
     torch.save(model.state_dict(), checkpoint_path)
 
     # test model
+    print("len test data: ", len(test_data))
     test_dataloader = get_dataloader(
         config=config,
         tokenizer=tokenizer,
         dataset=test_data,
-        batch_size=1,
+        batch_size=batch_size,
         shuffle=False
     )
     test_model(config=config, dataloader=test_dataloader)
