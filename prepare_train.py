@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import Dataset
-from datasets import load_dataset, train_val_test_split
+from datasets import load_dataset
 from torch.utils.data import DataLoader
 import torch
 from tokenizers import Tokenizer
@@ -24,8 +24,6 @@ def handle_special_char(sent):
 # read dataset
 def read_dataset(config):
     train_data_path = config["DATA"]["train_path"]
-    val_data_path = config["DATA"]["val_path"]
-    test_data_path = config["DATA"]["test_path"]
     ratio_val = config["DATA"]["ratio_val"]
     ratio_test = config["DATA"]["ratio_test"]
 
