@@ -32,6 +32,10 @@ def test_model(config, dataloader):
             target = target[0].to(device)
             context = context[0].to(device)
             probs = model(context)
+            print("probs shape: ", probs.shape)
+            print(f"probs: {probs}")
+            print("target", target)
+            print("context", context)
             
             # get predicted word
             _, predicted = torch.max(probs, 1)
