@@ -24,8 +24,6 @@ def get_config():
 
     config["DATA"] = {
         "train_path": "../dataset/data/vi.csv",
-        "val_path": "../dataset/data/val.csv",
-        "test_path": "../dataset/data/test.csv",
         "ratio_val": 0.1,
         "ratio_test": 0.02,
     }
