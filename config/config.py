@@ -65,3 +65,5 @@ def load_config(config=None, epoch=0):
     config = configparser.ConfigParser()
     config.read(last_epoch_path)
     return config
+
+__all__ = ["get_config", "create_all_dirs", "save_config", "load_config"]
