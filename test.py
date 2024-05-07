@@ -29,16 +29,14 @@ def test_model(config, dataloader):
         model.eval()
         batch_iterator = tqdm(dataloader, desc=f"Testing Model")
         for target, context in batch_iterator:
-            target = target.squeeze(1).to(device)
-            context = context.to(device)
+            target = target[0].to(device)
+            context = context[0].to(device)
             probs = model(context)
             
             # get predicted word
             _, predicted = torch.max(probs, 1)
-            predicted = predicted.cpu().numpy()
-            target = target.cpu().numpy()
-            labels += target.tolist()
-            predictions += predicted.tolist()
+            labels.append(target.item())
+            predictions.append(predicted.item())
 
     labels = torch.tensor(labels).clone().detach().to(device)
     predictions = torch.tensor(predictions).clone().detach().to(device)
