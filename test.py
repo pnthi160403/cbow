@@ -25,6 +25,8 @@ def test_model(config, dataloader):
 
     labels = []
     predictions = []
+    print_step = len(dataloader) // 10
+    step = 0
     with torch.no_grad():
         model.eval()
         batch_iterator = tqdm(dataloader, desc=f"Testing Model")
@@ -44,6 +46,11 @@ def test_model(config, dataloader):
             # print("target: ", target)
             labels.append(target.item())
             predictions.append(predicted.item())
+            step += 1
+            if step % print_step == 0:
+                decode_target = tokenizer.decode(target[0])
+                decode_predicted = tokenizer.decode(predicted[0])
+                print(f"Target: {decode_target} - Predicted: {decode_predicted}")
 
     labels = torch.tensor(labels).clone().detach().to(device)
     predictions = torch.tensor(predictions).clone().detach().to(device)
