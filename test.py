@@ -29,6 +29,8 @@ def test_model(config, dataloader):
         model.eval()
         batch_iterator = tqdm(dataloader, desc=f"Testing Model")
         for target, context in batch_iterator:
+            target = target.to(device)
+            context = context.to(device)
             probs = model(context)
             print("probs shape: ", probs.shape)
             print(f"probs: {probs}")
