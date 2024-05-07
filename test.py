@@ -34,6 +34,9 @@ def test_model(config, dataloader):
             labels += target.tolist()
             predictions += predicted.tolist()
 
+    labels = torch.tensor(labels).clone().detach().to(device)
+    predictions = torch.tensor(predictions).clone().detach().to(device)
+
     accuracy = calc_accuracy(
         preds=predictions,
         target=labels,
