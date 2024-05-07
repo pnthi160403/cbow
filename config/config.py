@@ -16,7 +16,7 @@ def get_config():
     config["MODEL"] = {
         "embedding_dim": 512,
         "context_size": 2,
-        "dropout": 0.5,
+        "dropout": 0.01,
     }
 
     config["TRAIN"] = {

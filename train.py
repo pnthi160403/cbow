@@ -35,6 +35,14 @@ def train(config):
         shuffle=True
     )
 
+    val_dataloader = get_dataloader(
+        config=config,
+        tokenizer=tokenizer,
+        dataset=val_data,
+        batch_size=batch_size,
+        shuffle=False
+    )
+
     # get model
     model = get_model_cbow(
         config=config,
@@ -49,10 +57,12 @@ def train(config):
 
     # get loss function
     loss_fn = get_nll_loss()
-    losses = []
+    loss_train = []
+    loss_val = []
 
     for epoch in range(epochs):
         torch.cuda.empty_cache()
+        # train
         model.train()
 
         batch_iterator = tqdm(train_dataloader, desc=f"Processing Epoch {epoch:02d}")        
@@ -68,13 +78,36 @@ def train(config):
             loss = loss_fn(log_probs, target)
 
             batch_iterator.set_postfix({"loss": f"{loss.item():6.3f}"})
-            losses.append(loss.item())
+            loss_train.append(loss.item())
 
             loss.backward()
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
+
+        # val
+        model.eval()
+        batch_iterator = tqdm(val_dataloader, desc=f"Validating Model {epoch:02d}")
+        with torch.no_grad():
+            for target, context in batch_iterator:
+                if context.size()[0] != batch_size:
+                    continue
+
+                target = target.squeeze(1).to(device)
+                context = context.to(device)
+
+                log_probs = model(context)
+                loss = loss_fn(log_probs, target)
+
+                batch_iterator.set_postfix({"loss": f"{loss.item():6.3f}"})
+                loss_val.append(loss.item())
+            
     
-    draw_loss_plot(config=config, losses=losses)
+    draw_loss_plot(config=config, losses=loss_train)
+    draw_loss_plot(config=config, losses=loss_val)
+
+    # mean loss
+    print("Loss train: ", sum(loss_train) / len(loss_train))
+    print("Loss val: ", sum(loss_val) / len(loss_val))
 
     # save model
     torch.save(model.state_dict(), checkpoint_path)
