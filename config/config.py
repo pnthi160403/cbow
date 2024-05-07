@@ -10,7 +10,7 @@ def get_config():
     }
 
     config["CONFIG"] = {
-        "path": config["BASE_DIR"]["path"] + "config_epoch_{}.json",
+        "path": "config_epoch_{}.json",
     }
 
     config["MODEL"] = {
@@ -34,17 +34,18 @@ def get_config():
     }
 
     config["LOG"] = {
-        "path": config["BASE_DIR"]["path"] + "logs",
+        "path": "logs",
     }
 
     config["CHECKPOINT"] = {
-        "path": config["BASE_DIR"]["path"] + "checkpoints",
+        "path": "checkpoints",
     }
 
     return config
 
-def create_all_dirs(config):
+def create_dirs(config):
     for section in ["LOG", "CHECKPOINT"]:
+        config[section]["path"] = config["BASE_DIR"]["path"] + config[section]["path"]
         path = config[section]["path"]
         if not os.path.exists(path):
             os.makedirs(path)
@@ -56,4 +57,4 @@ def save_config(config, epoch):
     with open(path, "w") as f:
         json.dump(config, f, indent=4)
 
-__all__ = ["get_config", "create_all_dirs", "save_config"]
+__all__ = ["get_config", "create_dirs", "save_config"] 

@@ -3,12 +3,16 @@ from .util import set_seed, draw_loss_plot
 from tqdm import tqdm
 import torch
 from .test_model import test_model
+from .config.config import create_dirs
 
 # train
 def train(config):
+    # create dirs
+    create_dirs(config=config)
+
     # set seed
     set_seed()
-
+    
     # hyperparameters
     batch_size = config["TRAIN"]["batch_size"]
     epochs = config["TRAIN"]["epochs"]
