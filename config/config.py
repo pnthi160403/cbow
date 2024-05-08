@@ -39,13 +39,18 @@ def get_config():
 
     config["CHECKPOINT"] = {
         "path": "checkpoints",
+        "model_name": "model.pt",
     }
 
     return config
 
-def create_dirs(config):
+def join_path(config):
     for section in ["LOG", "CHECKPOINT"]:
         config[section]["path"] = config["BASE_DIR"]["path"] + config[section]["path"]
+    return config
+
+def create_dirs(config):
+    for section in ["LOG", "CHECKPOINT"]:
         path = config[section]["path"]
         if not os.path.exists(path):
             os.makedirs(path)
@@ -57,4 +62,4 @@ def save_config(config, epoch):
     with open(path, "w") as f:
         json.dump(config, f, indent=4)
 
-__all__ = ["get_config", "create_dirs", "save_config"] 
+__all__ = ["get_config", "create_dirs", "save_config", "join_path"] 

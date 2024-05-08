@@ -3,10 +3,13 @@ from .util import set_seed, draw_loss_plot
 from tqdm import tqdm
 import torch
 from .test import test_model
-from .config.config import create_dirs
+from .config.config import create_dirs, join_path
 
 # train
 def train(config):
+    # join path
+    config = join_path(config=config)
+
     # create dirs
     create_dirs(config=config)
 
@@ -18,7 +21,7 @@ def train(config):
     epochs = config["TRAIN"]["epochs"]
     learning_rate = config["TRAIN"]["learning_rate"]
     device = config["TRAIN"]["device"]
-    checkpoint_path = config["CHECKPOINT"]["path"] + "/model.pth"
+    checkpoint_path = config["CHECKPOINT"]["path"] + "/" + config["CHECKPOINT"]["model_name"]
 
     # get dataset
     train_data, val_data, test_data = read_dataset(config=config)
