@@ -10,7 +10,8 @@ def get_config():
     }
 
     config["CONFIG"] = {
-        "path": "config_epoch_{}.json",
+        "path": "config",
+        "pattern": "config_epoch_{}.json",
     }
 
     config["MODEL"] = {
@@ -52,13 +53,13 @@ def join_path(config):
     return config
 
 def create_dirs(config):
-    for section in ["LOG", "CHECKPOINT"]:
+    for section in ["LOG", "CHECKPOINT", "CONFIG"]:
         path = config[section]["path"]
         if not os.path.exists(path):
             os.makedirs(path)
 
 def save_config(config, epoch):
-    path = config["CONFIG"]["path"].format(epoch)
+    path = config["CONFIG"]["path"] + "/" + config["CONFIG"]["pattern"].format(epoch)
     print(f"Saving config to {path}")
 
     with open(path, "w") as f:
