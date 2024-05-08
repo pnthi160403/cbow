@@ -107,6 +107,9 @@ def train(config):
 
                 batch_iterator.set_postfix({"loss": f"{loss.item():6.3f}"})
                 loss_val.append(loss.item())
+
+        # save config
+        save_config(config=config, epoch=epoch)
             
     
     draw_loss_plot(config=config, losses=loss_train, name_figure="loss_train")
@@ -118,9 +121,6 @@ def train(config):
 
     # save model
     torch.save(model.state_dict(), checkpoint_path)
-
-    # save config
-    save_config(config=config, epoch=epochs)
 
     # test model
     print("len test data: ", len(test_data))
