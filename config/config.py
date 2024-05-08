@@ -45,7 +45,9 @@ def get_config():
     return config
 
 def join_path(config):
-    for section in ["LOG", "CHECKPOINT"]:
+    for section in ["LOG", "CHECKPOINT", "CONFIG"]:
+        if config[section]["path"].startswith(config["BASE_DIR"]["path"]):
+            continue
         config[section]["path"] = config["BASE_DIR"]["path"] + config[section]["path"]
     return config
 
