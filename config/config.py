@@ -58,7 +58,7 @@ def create_dirs(config):
             os.makedirs(path)
 
 def save_config(config, epoch):
-    path = config["DEFAULT"]["path"].format(epoch)
+    path = config["CONFIG"]["path"].format(epoch)
     print(f"Saving config to {path}")
 
     with open(path, "w") as f:
