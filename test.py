@@ -77,7 +77,7 @@ def test_model(config, dataloader):
     f_beta = calc_f_beta(
         preds=predictions,
         target=labels,
-        beta=1,
+        beta=1.0,
         num_classes=tokenizer.get_vocab_size(),
         device=device
     )

@@ -3,7 +3,7 @@ from .utils import set_seed, draw_loss_plot
 from tqdm import tqdm
 import torch
 from .test import test_model
-from .config.config import create_dirs, join_path
+from .config.config import create_dirs, join_path, save_config
 import json
 
 # train
@@ -118,6 +118,9 @@ def train(config):
 
     # save model
     torch.save(model.state_dict(), checkpoint_path)
+
+    # save config
+    save_config(config=config, epoch=epochs)
 
     # test model
     print("len test data: ", len(test_data))
