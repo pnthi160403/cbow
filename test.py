@@ -1,7 +1,7 @@
 from .prepare_train import get_model_cbow, read_tokenizer
 import torch
 from tqdm import tqdm
-from .util import calc_accuracy, calc_recall, calc_precision, calc_f_beta, set_seed
+from .utils import calc_accuracy, calc_recall, calc_precision, calc_f_beta, set_seed
 import pandas as pd
 
 def test_model(config, dataloader):

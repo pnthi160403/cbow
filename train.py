@@ -1,5 +1,5 @@
 from .prepare_train import read_dataset, read_tokenizer, get_dataloader, get_Adam_optimizer, get_model_cbow, get_nll_loss
-from .util import set_seed, draw_loss_plot
+from .utils import set_seed, draw_loss_plot
 from tqdm import tqdm
 import torch
 from .test import test_model
