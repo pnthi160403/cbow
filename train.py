@@ -4,11 +4,15 @@ from tqdm import tqdm
 import torch
 from .test import test_model
 from .config.config import create_dirs, join_path
+import json
 
 # train
 def train(config):
     # join path
     config = join_path(config=config)
+
+    # show config with json format
+    print(json.dumps(config, indent=4))
 
     # create dirs
     create_dirs(config=config)
