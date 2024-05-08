@@ -13,13 +13,13 @@ def set_seed(seed=42):
     torch.backends.cudnn.benchmark = False
 
 # draw loss plot
-def draw_loss_plot(config, losses):
+def draw_loss_plot(config, losses, name_figure="loss"):
     save_path = config["LOG"]["path"]
     plt.plot(losses)
     plt.xlabel("Iteration")
     plt.ylabel("Loss")
     plt.title("Loss Plot")
-    plt.savefig(f"{save_path}/loss_plot.png")
+    plt.savefig(f"{save_path}/{name_figure}.png")
     plt.close()
 
 def calc_accuracy(preds, target, num_classes, device):

@@ -109,8 +109,8 @@ def train(config):
                 loss_val.append(loss.item())
             
     
-    draw_loss_plot(config=config, losses=loss_train)
-    draw_loss_plot(config=config, losses=loss_val)
+    draw_loss_plot(config=config, losses=loss_train, name_figure="loss_train")
+    draw_loss_plot(config=config, losses=loss_val, name_figure="loss_val")
 
     # mean loss
     print("Loss train: ", sum(loss_train) / len(loss_train))
